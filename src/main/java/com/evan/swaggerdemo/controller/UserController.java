@@ -51,14 +51,14 @@ public class UserController {
 
     @PostMapping("/getUserList")
     @ApiOperation(value = "用户模块-查询所有用户", notes = "注意问题点", httpMethod = "POST")
-    public List<UserModel> getlist(HttpServletRequest request, HttpServletResponse response,
+    public Response<List<UserModel>> getlist(HttpServletRequest request, HttpServletResponse response,
                                    @ApiParam(value = "查询请求参数体")@RequestBody @Valid UserListRes req){
         QueryWrapper<UserModel> queryWrapper = new QueryWrapper<UserModel>();
         queryWrapper.eq("phone",req.getPhone());
         queryWrapper.orderByAsc("phone");
 
         List<UserModel> list = userService.list();
-        return list;
+        return Response.ok(list);
     }
 
     @ApiOperation(value="获取用户信息",tags={"获取用户信息"},notes="注意问题点")
